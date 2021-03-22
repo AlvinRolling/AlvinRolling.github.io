@@ -24,15 +24,14 @@ categories: EDA Front-End
 ## 使用
 Euclide新增了一个Compilation Unit Definition（CUD)文件，类似VCS编译时候, -f/-F 参数用到的filelist文件，列出需要编译的文件列表。Euclide的lint、auto-complete功能仅在列出的文件中可用。
 
-{% highlight Python %}
+```yaml
 # Verilog Source File
 test.sv
 # Other CUD File
 another.cud
 # Folders
 ./subfolders
-{% endhighlight %}
-
+```
 
 代码编写上，简单的 `always_comb`, `always_ff` 等模块编写速度仍比Sublime慢，但其提供了更多类型的自动补全模板，可从 `EuclidE Preferences -> Editor -> Templates` 查看。Euclide最吸引人的地方，在于它能够实时显示并定位代码中的问题，下方两图展示了其功能。
 
