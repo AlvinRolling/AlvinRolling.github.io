@@ -1,11 +1,11 @@
 ---
-layout: post
 title:  "Synopsys 前端 IDE Euclide 上手"
 date:   2021-03-15 16:06:30 +0800
 categories: EDA Front-End
+toc: true
+toc_icon: glasses
 ---
 
-# 从前
 数字电路前端设计一直缺少高效的IDE工具。目前一直使用的文具是Sublime Text + SystemVerilog 插件满足代码高亮，自动例化，层级显示等大部分功能。而VCS编译所需用到的文件使用手动编写。该方法仍有较大不便
 
 1. VCS编译过程中的错误需要手动定位到代码。
@@ -24,14 +24,15 @@ categories: EDA Front-End
 ## 使用
 Euclide新增了一个Compilation Unit Definition（CUD)文件，类似VCS编译时候, -f/-F 参数用到的filelist文件，列出需要编译的文件列表。Euclide的lint、auto-complete功能仅在列出的文件中可用。
 
-```yaml
+{% highlight Python %}
 # Verilog Source File
 test.sv
 # Other CUD File
 another.cud
 # Folders
 ./subfolders
-```
+{% endhighlight %}
+
 
 代码编写上，简单的 `always_comb`, `always_ff` 等模块编写速度仍比Sublime慢，但其提供了更多类型的自动补全模板，可从 `EuclidE Preferences -> Editor -> Templates` 查看。Euclide最吸引人的地方，在于它能够实时显示并定位代码中的问题，下方两图展示了其功能。
 

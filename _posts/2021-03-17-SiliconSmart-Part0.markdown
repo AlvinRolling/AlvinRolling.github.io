@@ -1,11 +1,12 @@
 ---
-layout: post
-title:  "SiliconSmart Part 0"
-date:   2021-03-17 15:38:30 +0800
-categories: SiliconSmart
+layout: posts
+title:  "SiliconSmart Part0"
+date:   2021-03-15 16:06:30 +0800
+categories: EDA Front-End
 ---
 
-# 
+
+## SiliconSmart 介绍
 SiliconSmart 是业界领先的特征化(Characterization)和建模(Modeling)工具。其支持的建模类型包括.
 
 * Nonlinear Delay Model (NLDM) for timing analysis 
@@ -213,9 +214,9 @@ model -timing -power -ccs -ccs_noise -output ccs $cells
 log_info "IAMDONE"
 ```
 
-* __Makefile__
+* __Makefile__ 
 
-```Makefile
+```makefile
 all: clean run
 
 run:

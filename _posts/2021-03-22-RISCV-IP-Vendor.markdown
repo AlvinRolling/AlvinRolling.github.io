@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "RISC-V IP & IDE 总结"
 date:   2021-03-22 15:20:30 +0800
 categories: RISC-V
