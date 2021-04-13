@@ -1,6 +1,6 @@
 ---
 layout: posts
-title:  "SiliconSmart Part0"
+title:  "SiliconSmart - Part0"
 date:   2021-03-15 16:06:30 +0800
 categories: EDA Front-End
 ---

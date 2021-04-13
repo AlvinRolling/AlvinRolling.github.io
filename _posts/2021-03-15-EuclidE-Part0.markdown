@@ -1,5 +1,5 @@
 ---
-title:  "Synopsys 前端 IDE Euclide 上手"
+title:  "Euclide - Part0"
 date:   2021-03-15 16:06:30 +0800
 categories: EDA Front-End
 toc: true
@@ -19,20 +19,30 @@ toc_icon: glasses
 >VCS and Verdi users can easily adopt the solution using existing project files and scripts.
 
 ## 安装
-不同于其他Synopsys的工具，无需使用Synopsys Installer.Euclide只需要将安装包解压，并将执行文件地址添加到环境变量即可。
+不同于其他Synopsys的工具，无需使用Synopsys Installer. Euclide只需要将安装包解压，并将执行文件地址添加到环境变量即可。
 
 ## 使用
-Euclide新增了一个Compilation Unit Definition（CUD)文件，类似VCS编译时候, -f/-F 参数用到的filelist文件，列出需要编译的文件列表。Euclide的lint、auto-complete功能仅在列出的文件中可用。
+Euclide使用Compilation Unit Definition（CUD)文件，类似VCS编译时候, -f/-F 参数用到的filelist文件，列出需要编译的文件列表。Euclide的lint、auto-complete功能仅在列出的文件中可用。每个项目至少包含一个 root CUD 文件，CUD文件可以继续包括其他子CUD文件。
 
-{% highlight Python %}
+但与VCS仍有区别
+
+1. VCS编译命令有`-top`选项，用于指定顶层设计module的名称。CUD文件也有-top选项，但指定的是带路径的文件名，例如 `-top ./src/tb.sv`.
+2. CUD 另外包括`-top_synth`等选项。
+3. 两者都支持`-F`和`-f`选项。
+
+因此，建议在CUD文件中使用VCS兼容的语法，不使用`-top`选项，并且使用`-F`选项指定另一CUD文件。在VCS的编译选项`-top`可以写在Makefile文件中。
+
+{% highlight Python linenos%}
 # Verilog Source File
 test.sv
-# Other CUD File
-another.cud
-# Folders
-./subfolders
-{% endhighlight %}
 
+# Other CUD File
+# another.cud     ## Not Recommended
+-F another.cud    ## Recommended
+
+# Folders
+# ./subfolders    ## Not Recommemded
+{% endhighlight %}
 
 代码编写上，简单的 `always_comb`, `always_ff` 等模块编写速度仍比Sublime慢，但其提供了更多类型的自动补全模板，可从 `EuclidE Preferences -> Editor -> Templates` 查看。Euclide最吸引人的地方，在于它能够实时显示并定位代码中的问题，下方两图展示了其功能。
 

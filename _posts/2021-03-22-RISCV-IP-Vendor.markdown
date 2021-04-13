@@ -2,7 +2,10 @@
 title:  "RISC-V IP & IDE 总结"
 date:   2021-03-22 15:20:30 +0800
 categories: RISC-V
+toc: true
+toc_icon: glasses
 ---
+
 
 由于开源 RISC-V Core 缺少IDE，软件开发有诸多不便。后续准备将现有使用的基于 [IBEX](https://github.com/lowRISC/ibex) 的 RISC-V 核心替换为商用IP。国内外常用的RISC-V IP&IDE Vendor 列出如下。由于国内 Starfive 曾为 Sifive 的国内分部，下表中未单独列出。
 
@@ -16,3 +19,16 @@ categories: RISC-V
 | **Nuclei (芯来科技)**    | NO               | -         | YES             | N/NX/UX Class                             | YES | Nuclei Studio  | NO                 | YES           | -        | Shanghai China       |                                                | [Nuclei](https://www.nucleisys.com/product.php)                   |
 | **SiFive**           | NO               | -         | YES             | E/S/U Cores                               | YES | Freedom Studio | YES                | YES           | -        | CA, USA              | From UC Berkeley                               | [SiFive](https://www.sifive.com/risc-v-core-ip)                   |
 | **Syntacore**        | YES              | SCR1      | YES             | SCR3/4/5/7                                | YES | -              | NO                 | YES           | -        | Moscow, Russia       |                                                | [Syntacore](https://syntacore.com/page/products/processor-ip)        |
+
+
+# 考虑因素
+
+IDE友好程度: 
+
+参考例程: 
+
+Virtual Prototyping: 
+
+Andes提供完整的platform下的仿真，使用SystemC完成Virtual Prototyping。我们可以直接仿真外设的行为，同时检测寄存器的工作状态，加快软件开发流程。
+
+
