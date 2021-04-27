@@ -6,7 +6,9 @@ toc: true
 toc_icon: glasses
 ---
 
+本文总结了RISC-V IP/IDE Vendor。
 
+## Summary
 由于开源 RISC-V Core 缺少IDE，软件开发有诸多不便。后续准备将现有使用的基于 [IBEX](https://github.com/lowRISC/ibex) 的 RISC-V 核心替换为商用IP。国内外常用的RISC-V IP&IDE Vendor 列出如下。由于国内 Starfive 曾为 Sifive 的国内分部，下表中未单独列出。
 
 | Vendor           | Open Source Core | Core Name | Commercial Core | Core Name                                 | IDE | IDE Name       | IDE Mac Compatible | Custom Instr. | Language | Comp. Location       | Comments                                       | Ref Link                                                |
@@ -21,7 +23,7 @@ toc_icon: glasses
 | **Syntacore**        | YES              | SCR1      | YES             | SCR3/4/5/7                                | YES | -              | NO                 | YES           | -        | Moscow, Russia       |                                                | [Syntacore](https://syntacore.com/page/products/processor-ip)        |
 
 
-# 考虑因素
+## 考虑因素
 
 IDE友好程度: 
 

@@ -1,0 +1,354 @@
+---
+title:  "UVM - 使用ralgen生成RAL Model"
+date:   2021-04-27 16:06:30 +0800
+categories: EDA Front-End
+toc: true
+toc_icon: glasses
+laytout: posts
+---
+
+本文介绍使用ralgen自动生成UVM RAL Model的方法。
+
+手写RAL Model工作繁杂且容易出错，Synopsys提供了ralgen工具，将`.ralf`描述文件生成对应的RAL Model，用于集成到UVM验证代码中。ralgen 随VCS安装，可以在VCS目录下bin里找到其可执行文件。
+
+
+## Code Generation
+
+{% highlight bash linenos%}
+ralgen [options] -t topname -I dir -uvm {filename.ralf}
+{% endhighlight %}
+
+使用`-doc`生成htm的可视化文件。使用`-c`选项生成Functional Coverage Model
+
+``` bash 
+ralgen -c b ...
+# Generates the register bits coverage model 
+
+ralgen -c a 
+# Generates the address map coveraeg model
+
+ralgen -c f 
+# Generates the field value coverage model 
+
+ralgen -c ba 
+# Multiple functional coverage models  
+```
+
+## RALF 语法
+
+
+### Field
+
+Field是最基本的寄存器单元。
+
+{% highlight tcl linenos%}
+field name [{
+    <properties>
+}]
+
+### 常用的properties包括
+
+[bits n;] 
+# 寄存器长度，默认为1。
+[access rw/ro/wo/...] 
+# 读写功能。详细列表参加UG。
+[reset/hard_reset value;]
+# hard reset value. RAL中只有0/1两种值
+[soft_reset value;]
+# Soft reset value. RAL中只有0/1两种值
+[<constraint name [{ 
+    <expressions>
+}]>]
+# constraint
+[enum { <name[=val],> }]
+# Enum 
+[cover <+|- b|f>
+# Functional Coverage. 
+# b means register-bit. f means field value.
+[<coverpoint {
+<bins name [[[n]]] = { <n|[n:n],> } | default>
+}>]
+# 显式地声明 coverpoint。
+{%endhighlight%}
+
+示例1
+
+{% highlight tcl linenos%}
+field PAR {
+    bits 2;
+    reset 2’b11;
+    constraint valid {
+        value != 2’b00;
+    }
+}
+{%endhighlight%}
+
+示例2
+{% highlight tcl linenos%}
+field f2 {
+    bits 8;
+    enum { AA, BB, CC=15 }
+    coverpoint {
+        bins AAA     = { 0, 12 }
+        bins BBB []  = { 1, 2, AA, CC }
+        bins CCC [3] = { 14,15, [ BB : 10 ] }
+        bins DDD     = default
+    }
+}
+{%endhighlight%}
+
+
+### Register 
+
+Register是Field的集合。多个Register可以组合成Register File或者Blocks
+
+{% highlight tcl linenos%}
+register name {
+   <properties>
+}
+
+### 常用的properties包括
+[bytes n;]
+# 字节数
+
+[<field name[=rename][[n]] [(hdl_path)] 
+    [@bit_offset[+incr]];
+[<field name [[n]] [(hdl_path)] 
+    [@bit_offset[+incr]] {
+   <field properties>
+   }>]
+# 加入Field的两种方式。
+# 第一种在外部描述Field。第二种在Register内部描述。
+# 使用 @ 描述内部寄存器的offset
+[cover <+|- a|b|f>
+#  a means address map coverage model
+
+{% endhighlight %}
+
+**Example**
+
+![uvm]({{site.url}}/assets/UVM/ralgen/register.jpg)
+
+对于如图所示的寄存器，ralf描述文件如下
+{% highlight tcl linenos%}
+register CTRL {
+    field TXE {}
+    field RXE {}
+    field PAR {
+        bits 2;
+        reset 2’b11;
+    }
+    field DTR @11 {
+        access rw; }
+    field CTS {
+        access rw;
+        reset 1; 
+    }
+}
+{% endhighlight %}
+
+### RegFile 
+Register File是一系列连续Register的集合。它可以组合成Blocks。
+
+{% highlight tcl linenos%}
+regfile name {
+    <properties>
+}
+
+### 通过以下几种方式包含进Register
+# Previously Defined Register
+[<register name[=rename][[n]] [(hdl_path)] 
+    [@offset] [read|write];>]
+# Inline Defined Register
+[<register name[[n]] [(hdl_path)] [@offset] { 
+    <property>
+}]
+
+## Array of registers
+[<register name[=rename][m:n]] [(hdl_path)] 
+    [@offset] [read|write];>]
+[<register name[[m:n]] [(hdl_path)] [@offset] { 
+    <property>
+}]
+{% endhighlight %}
+
+**Example**
+假设有16通道的DMA，每个DMA模块的寄存器规定如下
+![uvm]({{site.url}}/assets/UVM/ralgen/regfile.jpg)
+
+ralf描述文件如下
+{% highlight tcl linenos%}
+block dma_ctrl {
+    # Register Array of 16
+    regfile chan[16] {
+        register src {
+            bytes 2;
+            field addr {
+                bits 16; 
+            }
+        }
+        register dst {
+            bytes 2;
+            field addr {
+                bits 16; 
+            }
+        }
+        register count {
+            bytes 2;
+            field n_bytes {
+                bits 16; 
+            }
+        }
+        register ctrl {
+            bytes 2;
+            field TXE {
+                bits 1;
+                access rw; 
+            }
+            field BSY {
+                bits 1;
+                access ro; 
+            }
+            field DN @12 {
+                bits 1;
+                access ro; 
+            }
+            field status {
+                bits 3;
+                access ro; 
+            }
+        } 
+    }
+}
+{% endhighlight %}
+
+### Memory
+
+{% highlight tcl linenos%}
+memory name {
+    <property> 
+}
+
+### 常用的properties包括
+size m[k|M|G];
+bits n;
+# 整个memory大小为 size x bits
+[access rw|ro;]
+# RAM or ROM 
+[initial x|0|1|addr|literal[++|--];]
+# 初值
+[cover <+|- a>
+# Coverage model
+
+{% endhighlight %}
+
+
+{% highlight tcl linenos%}
+memory tx_bfr {
+    bits    16;
+    size    1024;
+    access  ro;
+    initial 0++;
+}
+{% endhighlight %}
+
+### Block 
+Block 是Register和Memory的集合。如果Block拥有超过一个Physical Interface（可以通过两种方式访问），可以使用domain规定不同的读写交互方式，具体的使用方法请参考UG。
+
+{% highlight tcl linenos%}
+block name {
+    <property> 
+}
+
+### 除了之前提到的Register, RegFile, Memory之外
+### Block还可以包括下面常见的property
+
+bytes n;
+# 可同时读取的字节数
+{% endhighlight %}
+
+{% highlight tcl linenos%}
+block multi_chan {
+    bytes 1;
+    endian little;
+    register CHAN_CTRL[32] @’h0200 {
+        bytes 2;
+        ... 
+    };
+}
+{% endhighlight %}
+
+### System 
+System包括了Block或者sub-system，可用于生成更顶层的System
+
+{% highlight tcl linenos%}
+system name {
+    <property> 
+}
+
+### 其他常用的property
+bytes n;
+[<constraint name [{
+      <expression>
+}]>]
+[cover <+|- a|b|f>
+{% endhighlight %}
+
+{% highlight tcl linenos%}
+system SoC {
+    bytes 1;
+    endian little;
+    block uart[2] @’hF0000 +’h01000;
+}
+{% endhighlight %}
+
+### 使用限制
+
+1. `uvm_reg_field::configure()` 的 **volatile** 参数可以通过field配置。默认为0.
+2. `uvm_reg_field::configure()` 的 **has_reset** 参数，如果field设置了hard reset value，则为1；否则为0.关于hard reset 和 soft reset，请参考[this page](http://cfs-vision.com/2016/07/22/systemverilog-how-to-model-multiple-reset-signals-in-uvm-registers/).
+3. 不支持 `set_compare()`
+
+另有几项请参阅 UG。
+
+
+## 使用IP-XACT
+IP-XACT是一种符合XML标准的描述语言，相比Synopsys ralf文件更加通用。可以先将IP-XACT生成ralf文件，再进行之前列出的过程，进而生成RAL Model。
+```bash
+ralgen -ipxact2ralf cpu_regs.xml
+```
+![uvm]({{site.url}}/assets/UVM/ralgen/ip-xact.jpg)
+
+也可以直接将IP-XACT生辰RAL Model。
+```bash
+ralgen -ipxact -uvm -t <top name> <input IP-XACT file>
+```
+
+
+两者的对应关系如下例所示。
+**cpu_regs.xml**
+{% highlight xml linenos%}
+...
+    <spirit:register>
+            <spirit:name>r2</spirit:name>
+            <spirit:addressOffset>0x8</spirit:addressOffset>
+            <spirit:size>64</spirit:size>
+            <spirit:access>read-write</spirit:access>
+        <spirit:field>
+            <spirit:name>f2</spirit:name>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+        </spirit:field>
+        ...
+    </spirit:register>
+{% endhighlight %}
+**cpu_regs.ralf**
+{% highlight tcl linenos%}
+...
+    register r2 @'h8 {
+        field f2 {
+            bits 1;
+            access rw; 
+        }
+... }
+{% endhighlight %}
