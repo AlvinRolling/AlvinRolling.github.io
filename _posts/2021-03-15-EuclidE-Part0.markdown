@@ -6,6 +6,8 @@ toc: true
 toc_icon: glasses
 ---
 
+本文介绍Synopsys的前端设计IDE Euclide。
+
 数字电路前端设计一直缺少高效的IDE工具。目前一直使用的文具是Sublime Text + SystemVerilog 插件满足代码高亮，自动例化，层级显示等大部分功能。而VCS编译所需用到的文件使用手动编写。该方法仍有较大不便
 
 1. VCS编译过程中的错误需要手动定位到代码。

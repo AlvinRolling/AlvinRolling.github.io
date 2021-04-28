@@ -1,7 +1,7 @@
 ---
 title:  "UVM - 使用ralgen生成RAL Model"
 date:   2021-04-27 16:06:30 +0800
-categories: EDA Front-End
+categories: EDA UVM
 toc: true
 toc_icon: glasses
 laytout: posts
@@ -14,9 +14,9 @@ laytout: posts
 
 ## Code Generation
 
-{% highlight bash linenos%}
+```bash
 ralgen [options] -t topname -I dir -uvm {filename.ralf}
-{% endhighlight %}
+```
 
 使用`-doc`生成htm的可视化文件。使用`-c`选项生成Functional Coverage Model
 
@@ -352,3 +352,6 @@ ralgen -ipxact -uvm -t <top name> <input IP-XACT file>
         }
 ... }
 {% endhighlight %}
+
+## Reference 
+**UVM Register Abstraction Layer Generator User Guide**
