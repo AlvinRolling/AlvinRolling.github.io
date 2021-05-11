@@ -1,0 +1,102 @@
+---
+title:  "Coverage 用法总结"
+date:   2021-05-11 14:46:30 +0800
+categories: Front-End
+toc: true
+toc_icon: glasses
+---
+
+本文介绍Coverage的概念以及使用Synopsys工具对其进行分析的方法。
+
+## Coverage 介绍 
+
+Coverage（覆盖），从字面理解，当代码被执行一次，则认为被覆盖一次。如果编写的RTL代码中存在部分代码，在仿真验证阶段从未被执行，则在ASIC实现后，在真实的应用场景中可能会发生不可预知的bug。因此，在前端signoff之前，需要确保尽可能多的完成覆盖率的测试。Coverage的思想和验证的思想也是契合的，通过对刺激的randomize，生成不同的刺激信号，尽可能去覆盖更多的RTL代码以及实际的工作情况。尽管理论上100%的覆盖率是不可能达到的。
+
+Mentor 将Coverage分为以下四个象限。本文重点关注Code Coverage和Functional Coverage。Assertion的使用需要进一步的学习理解。
+
+![cov_types]({{site.url}}/assets/Coverage/coverage_types.gif)
+
+## Code Coverage
+
+Code Coverage的想法比较直观，即确保编写的RTL代码都被执行到。具体分为以下几类，从名字上都可以直观地理解。
+
+* Line Coverage
+* Toggle Coverage
+* Condition Coverage
+* Branch Coverage
+* FSM Coverage
+
+下面介绍Synopsys分析工具的使用。在vcs编译时，加入 `-cm` 选项，后方可选Code Coverage类型参数(assert coverage也通过该选项打开)。仿真运行后的 simv 文件，之后会在目录下生成`simv.vdb`文件夹，储存了Coverage信息。打开verdi，加入 `-cov`选项，建议使用`-covdir`指定Coverage文件夹。
+
+```make
+all: clean comp run 
+
+clean: 
+
+comp:
+    vcs -full64 -sverilog test.sv -cm line+tgl+fsm+cond+branch+assert
+
+run:
+    ./simv -cm line+tgl+fsm+cond+branch+assert
+    verdi -cov -covdir simv.vdb -workMode coverageAnalysis
+```
+
+打开verdi coverage界面，在左侧选择对应的module，右侧选择对应的Coverage Type，中间的代码窗口会显示覆盖率结果。
+
+![verdi_cov_gui]({{site.url}}/assets/Coverage/verdi_cov.jpg)
+
+## Functional Coverage
+
+Functional Coverage为用户自己定义的集合，当信号的值落入设定的集合时，则视为检测到一次Coverage。相比Code Coverage，其使用更为自由，且能够与更接近实际的电路工作状态相对应。Functional Coverage可以出现在下图所示的四个地方（该思想也和UVM当中与信号相关的Class相对应）。
+
+![func_cov_type]({{site.url}}/assets/Coverage/functional_coverage_types.png)
+
+具体的学习及样例请参考[ASIC World](http://www.asic-world.com/systemverilog/coverage.html)
+
+### 使用urg生成html report
+
+```make
+all: clean comp run
+
+clean:
+    \rm -rf simv* csrc* *.log urgReport text
+
+comp:
+    vcs -full64 -sverilog test.sv -l comp.log
+
+run:
+    urg -dir simv.vdb -report text
+```
+
+在text目录下会生成如下文件，其
+
+| file | Summary |
+|------|---------|
+| dashboard.html | Overviews of coverage for design/testbench |
+| hierarchy.html | Hierarchical coverage for each instance in design |
+| modlist.html   | Coverage for each module in design |
+| groups.html    | Information for each coverage group |
+| tests.html     | Test Information |
+
+使用 **firefox** 打开生成的 html 文件。由于该文件比较简单，所以只有dashboard， groups和tests三个页面。打开groups。
+
+![group_list]({{site.url}}/assets/Coverage/urgReport.jpg)
+
+可以点击具体的covergroup名称，查看更详细的信息
+![group_detail]({{site.url}}/assets/Coverage/urgReport_group.jpg)
+
+### 使用Verdi
+
+使用方法与Code Coverage相同。此时，在左侧Summary Pane下，点击Groups，出现Covergroup的覆盖率结果。如下图所示
+
+![verdi_cov_group]({{site.url}}/assets/Coverage/verdi_cov_group.jpg)
+
+## Reference 
+
+* VCS User Guide - Chapter 12: Coverage
+* ASIC World Coverage Tutorial [Link](http://www.asic-world.com/systemverilog/coverage.html)
+* Mentor Verification Academy [Link](https://verificationacademy.com/cookbook/coverage/introduction)
+
+## TODO
+* Assertion 学习
+* UVM中的Functional Coverage如何查看？目前只能查看DUT中的结果。
