@@ -119,22 +119,159 @@ $masthead-link-color-hover: mix(#000, $primary-color, 25%) !default;
 $navicon-link-color-hover: mix(#fff, $primary-color, 75%) !default;
 
 /* syntax highlighting (base16) */
-$base00: #263238 !default;
-$base01: #2e3c43 !default;
-$base02: #314549 !default;
-$base03: #546e7a !default;
-$base04: #b2ccd6 !default;
-$base05: #eeffff !default;
-$base06: #eeffff !default;
+// $base00: #263238 !default;
+// $base01: #2e3c43 !default;
+// $base02: #314549 !default;
+// $base03: #546e7a !default;
+// $base04: #b2ccd6 !default;
+// $base05: #eeffff !default;
+// $base06: #eeffff !default;
+// $base07: #ffffff !default;
+// $base08: #f07178 !default;
+// $base09: #f78c6c !default;
+// $base0a: #ffcb6b !default;
+// $base0b: #c3e88d !default;
+// $base0c: #89ddff !default;
+// $base0d: #82aaff !default;
+// $base0e: #c792ea !default;
+// $base0f: #ff5370 !default;
+
+// scheme: "Classic Light"
+// author: "Jason Heeris (http://heeris.id.au)"
+// $base00: #F5F5F5 !default;
+// $base01: #E0E0E0 !default;
+// $base02: #D0D0D0 !default;
+// $base03: #B0B0B0 !default;
+// $base04: #505050 !default;
+// $base05: #303030 !default;
+// $base06: #202020 !default;
+// $base07: #151515 !default;
+// $base08: #AC4142 !default;
+// $base09: #D28445 !default;
+// $base0a: #F4BF75 !default;
+// $base0b: #90A959 !default;
+// $base0c: #75B5AA !default;
+// $base0d: #6A9FB5 !default;
+// $base0e: #AA759F !default;
+// $base0f: #8F5536 !default;
+
+// scheme: "Atelier Plateau Light"
+// author: "Bram de Haan (http://atelierbramdehaan.nl)"
+// $base00: #f4ecec !default;
+// $base01: #e7dfdf !default;
+// $base02: #8a8585 !default;
+// $base03: #7e7777 !default;
+// $base04: #655d5d !default;
+// $base05: #585050 !default;
+// $base06: #292424 !default;
+// $base07: #1b1818 !default;
+// $base08: #ca4949 !default;
+// $base09: #b45a3c !default;
+// $base0a: #a06e3b !default;
+// $base0b: #4b8b8b !default;
+// $base0c: #5485b6 !default;
+// $base0d: #7272ca !default;
+// $base0e: #8464c4 !default;
+// $base0f: #bd5187 !default;
+
+
+// scheme: "Tomorrow Night"
+// author: "Chris Kempson (http://chriskempson.com)"
+// $base00: #1d1f21 !default;
+// $base01: #282a2e !default;
+// $base02: #373b41 !default;
+// $base03: #969896 !default;
+// $base04: #b4b7b4 !default;
+// $base05: #c5c8c6 !default;
+// $base06: #e0e0e0 !default;
+// $base07: #ffffff !default;
+// $base08: #cc6666 !default;
+// $base09: #de935f !default;
+// $base0a: #f0c674 !default;
+// $base0b: #b5bd68 !default;
+// $base0c: #8abeb7 !default;
+// $base0d: #81a2be !default;
+// $base0e: #b294bb !default;
+// $base0f: #a3685a !default;
+
+// scheme: "Atlas"
+// author: "Alex Lende (https://ajlende.com)"
+// $base00: #002635 !default;
+// $base01: #00384d !default;
+// $base02: #517F8D !default;
+// $base03: #6C8B91 !default;
+// $base04: #869696 !default;
+// $base05: #a1a19a !default;
+// $base06: #e6e6dc !default;
+// $base07: #fafaf8 !default;
+// $base08: #ff5a67 !default;
+// $base09: #f08e48 !default;
+// $base0a: #ffcc1b !default;
+// $base0b: #7fc06e !default;
+// $base0c: #5dd7b9 !default;
+// $base0d: #14747e !default;
+// $base0e: #9a70a4 !default;
+// $base0f: #c43060 !default;
+
+// scheme: "PaperColor Dark"
+// author: "Jon Leopard (http://github.com/jonleopard) based on PaperColor Theme (https://github.com/NLKNguyen/papercolor-theme)"
+// $base00: #1c1c1c !default;
+// $base01: #af005f !default;
+// $base02: #5faf00 !default;
+// $base03: #d7af5f !default;
+// $base04: #5fafd7 !default;
+// $base05: #808080 !default;
+// $base06: #d7875f !default;
+// $base07: #d0d0d0 !default;
+// $base08: #585858 !default;
+// $base09: #5faf5f !default;
+// $base0a: #afd700 !default;
+// $base0b: #af87d7 !default;
+// $base0c: #ffaf00 !default;
+// $base0d: #ff5faf !default;
+// $base0e: #00afaf !default;
+// $base0f: #5f8787 !default;
+
+
+// scheme: "iA Dark"
+// author: "iA Inc. (modified by aramisgithub)"
+// $base00: #1a1a1a !default;
+// $base01: #222222 !default;
+// $base02: #1d414d !default;
+// $base03: #767676 !default;
+// $base04: #b8b8b8 !default;
+// $base05: #cccccc !default;
+// $base06: #e8e8e8 !default;
+// $base07: #f8f8f8 !default;
+// $base08: #d88568 !default;
+// $base09: #d86868 !default;
+// $base0a: #b99353 !default;
+// $base0b: #83a471 !default;
+// $base0c: #7c9cae !default;
+// $base0d: #8eccdd !default;
+// $base0e: #b98eb2 !default;
+// $base0f: #8b6c37 !default;
+
+
+// scheme: "Hardcore"
+// author: "Chris Caller"
+
+$base00: #212121 !default;
+$base01: #303030 !default;
+$base02: #353535 !default;
+$base03: #4A4A4A !default;
+$base04: #707070 !default;
+$base05: #cdcdcd !default;
+$base06: #e5e5e5 !default;
 $base07: #ffffff !default;
-$base08: #f07178 !default;
-$base09: #f78c6c !default;
-$base0a: #ffcb6b !default;
-$base0b: #c3e88d !default;
-$base0c: #89ddff !default;
-$base0d: #82aaff !default;
-$base0e: #c792ea !default;
-$base0f: #ff5370 !default;
+$base08: #f92672 !default;
+$base09: #fd971f !default;
+$base0a: #e6db74 !default;
+$base0b: #a6e22e !default;
+$base0c: #708387 !default;
+$base0d: #66d9ef !default;
+$base0e: #9e6ffe !default;
+$base0f: #e8b882 !default;
 
 /*
    Breakpoints
