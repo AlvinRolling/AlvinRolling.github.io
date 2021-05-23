@@ -119,8 +119,11 @@ author:
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
     - label: "Google Scholar"
-      icon: "fas fa-university"
+      icon: "fas fa-fw fa-university"
       url: "https://scholar.google.com/citations?user=gdJGsNsAAAAJ&hl=zh-CN&oi=ao"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin-in"
+      url: "https://www.linkedin.com/in/zijian-tang-24172b120/"
 
 # Site Footer
 footer:

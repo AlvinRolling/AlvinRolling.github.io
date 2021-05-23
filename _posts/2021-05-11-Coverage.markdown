@@ -51,7 +51,8 @@ Functional Coverage为用户自己定义的集合，当信号的值落入设定�
 
 ![func_cov_type]({{site.url}}/assets/Coverage/functional_coverage_types.png)
 
-具体的学习及样例请参考[ASIC World](http://www.asic-world.com/systemverilog/coverage.html)
+具体的学习及样例请参考 [**ASIC World**](http://www.asic-world.com/systemverilog/coverage.html)
+{: .notice--info}
 
 ### 使用urg生成html report
 

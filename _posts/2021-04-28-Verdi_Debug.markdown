@@ -4,7 +4,7 @@ date:   2021-04-28 15:46:30 +0800
 categories: EDA Debug
 toc: true
 toc_icon: glasses
-classes: wide
+tag: Verdi
 ---
 
 本文介绍Verdi的使用。
@@ -70,7 +70,8 @@ VCS编译
 ```bash
 % simv -gui +UVM_TESTNAME=test_read_modify_write +UVM_VERDI_TRACE=HIER
 ```
-注：Post-Simulation Flow还未尝试。
+**NOTE:** Post-Simulation Flow还未尝试。
+{: .notice--warning}
 
 ![jpg]({{site.url}}/assets/Verdi/UVM_debug/hier_tree_pane.jpg)
 
