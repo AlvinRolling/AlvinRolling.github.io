@@ -113,7 +113,6 @@ set_power_analysis_options –waveform_format [fsdb|out|none]
 
 To speed up the peak power analysis process, PrimePower performs distributed peak-power analysis using the distributed multi-scenario analysis (DMSA) infrastructure available in the PrimeTime tool. The DMSA flow evaluates several scenarios in parallel by using multiple processors. This mechanism provides faster turnaround time and the ability to analyze the results from the multiple scenarios in parallel. For timing analysis, a scenario is a set of operating conditions and modes; for power analysis, a scenario is a time window in the logic simulation activity file.
 
-
 TODO: To be continued.
 
 ## FAQ
@@ -146,6 +145,7 @@ setenv LD_LIBRARY_PATH /user/EDA_Tools/Synopsys/verdi/R-2020.12-SP1/share/vcst/l
 ![FSDB_Version]({{site_url}}/assets/PrimePower/fsdb_version.jpg)
 
 ## Cycle-Accurate Peak Power Analysis
+
 TODO:
 
 ## 基本例子

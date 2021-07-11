@@ -1,6 +1,6 @@
 ---
-title:  "ICC 特定形状 Floorplan"
-date:   2021-05-24 15:46:30 +0800
+title:  "ICC Custom Floorplan"
+date:   2021-06-04 15:46:30 +0800
 categories: Back-End
 toc: true
 toc_icon: glasses
@@ -12,7 +12,7 @@ toc_icon: glasses
 
 在混合信号电路中，数字电路部分的Floorplan通常需要配合模拟电路，因此需要实现特定的形状，以及固定于模拟电路位置匹配的PIN脚位置。ICC的图形界面中提供了一些快捷的T型、L型等Floorplan的设计方法，但仍然难以满足定制化设计的需求。本文介绍使用脚本完整 ICC Custom Floorplan 的方法。
 
-## 设计流程
+## Custom Pin Location
 
 ### 确定PIN脚位置
 
@@ -65,7 +65,7 @@ set_fp_pin_constraints \
 **WARNING:** 必须使用 `set_fp_pin_constraints` 命令，否则及同读入了tcl文件，ICC也不会按照它的设定工作。
 {: .notice--warning}
 
-## 特定形状 Floorplan
+## Custom Floorplan
 
 Synopsys 的Student Guide中推荐使用 ``命令。但该命令建立的floorplan的尺寸和用户设定的值有偏差，会自动偏移到最小height/width的整数倍（猜测）。因此如果要准确的定义 floorplan，则不能用此命令。（ICC Version: ...）
 {: .notice--danger}
@@ -103,5 +103,5 @@ initialize_rectilinear_block \
     -bottom_io2core 10
 ```
 
-NOTES：ICC 还提供了另外一种方法 。。。，但在ICC运行到该命令时总是崩溃退出。
+NOTES：ICC 还提供了另外一种方法 （记不清了，回忆起来后补充）。但在ICC运行到该命令时总是崩溃退出。
 {: .notice--danger}

@@ -29,6 +29,8 @@ setenv NOVAS_FSDB_FILE mid_prio.fsdb
 $fsdbDumpvars("+fsdbfile+low_prio.fsdb");
 ```
 
+纤细的参数设置请参考[Francis's blog](https://www.francisz.cn/2019/08/29/fsdb-dump/)。
+
 实际操作发现，无论如何还是需要在RTL TB写 `fsdbDumpvars` 命令。方法1,2只是覆盖了方法3中指定的参数。如果RTL TB中没有 `fsdbDumpvars` 系统调用，则不会存储 fsdb 波形文件。
 {: .notice--warning}
 
