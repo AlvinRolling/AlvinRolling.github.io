@@ -39,8 +39,6 @@ toc_icon: glasses
 
 ![vseq_block_level]({{site.url}}/assets/UVM/vseq/Virtual_Sequence_Block_Level.png){:width="600px"}
 
-
-
 以下图所示的结构作为示例。
 ![vseq_block_level]({{site.url}}/assets/UVM/vseq/Virtual_Seq_Veritical_Reuse.png){:width="600px"}
 

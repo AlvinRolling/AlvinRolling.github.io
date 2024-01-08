@@ -25,7 +25,7 @@ ralgen -c b ...
 # Generates the register bits coverage model 
 
 ralgen -c a 
-# Generates the address map coveraeg model
+# Generates the address map coverage model
 
 ralgen -c f 
 # Generates the field value coverage model 
@@ -35,7 +35,6 @@ ralgen -c ba
 ```
 
 ## RALF 语法
-
 
 ### Field
 

@@ -1,0 +1,86 @@
+---
+title:  "VIM SV UVM"
+date:   2024-01-08 15:06:30 +0800
+categories: EDA UVM
+toc: true
+toc_icon: glasses
+laytout: posts
+---
+
+This article presents the set ups of vim for SV and UVM purposes.
+
+This article is only halfway completed.
+
+<!-- Since I haven't away from the Github Pages in a while, and it appears that there have been
+significant changes to Ruby, Jekyll, and related tools during this time. I'm currently addressing
+layout issues in the project, and the  -->
+
+## List of Tools
+
+- universal-ctags
+- vim-ale
+- slang
+- verible
+
+## ctags
+
+Universal-ctags is considered as a better tool over traditional ctags. Although some [blogs](https://coderwall.com/p/fy7stg/vim-and-systemverilog) suggested a manual file for verilog/systemverilog tag generation, it seems it is integrated in Universal-ctags since xx.
+
+### uvm tags
+
+### vim tags settings
+
+In the local `.vimrc` file, add the following settings.
+
+```bash
+set tags=./tags;
+set tags+=$your_dir/uvm-1.1d/src/tags
+```
+
+This file won't take effect, unless you set the following in `~/.vimrc`.
+
+```bash
+if getcwd() =~# '^\($your_working_dir/\)'
+  set secure exrc
+endif
+```
+Check this [blog](https://vimtricks.com/p/local-vimrc-files/) for more details.
+
+## vim-ale
+
+To tell which linter is currently being used when opening a file in vim, check [this
+issue](https://github.com/dense-analysis/ale/issues/298), and add the following in `.vimrc`
+
+```bash
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+```
+
+You can also check the current value of a vim setting as in [this answer](https://stackoverflow.com/questions/2078271/how-to-get-view-show-current-value-of-a-setting-in-vim)
+
+## UVM repo
+
+[core-v-verif](https://github.com/openhwgroup/core-v-verif)
+&
+[riscv-dv](https://github.com/chipsalliance/riscv-dv?tab=readme-ov-file)
+
+## linter
+
+The results of of linters' comparison is listed
+[here](https://chipsalliance.github.io/sv-tests-results/). Among which [slang](https://github.com/MikePopoloski/slang) and [verible](https://github.com/chipsalliance/verible)
+demonstrated the best performance.
+
+### slang
+
+**slang** seems to be a good candidate to replace the verilator, as its outputs seems similar to
+normal clang.
+TODO: merge **slang** with vim-ale, following the example of **clang**
+[here](https://github.com/dense-analysis/ale/blob/master/ale_linters/c/cc.vim).
+
+FIXME: Currently, run cmake under the `build` dir would still have 9 fail cases in total.
+FIXME: The `doc` is not fully generated with python errors.
+
+### verible
+
+## Results
