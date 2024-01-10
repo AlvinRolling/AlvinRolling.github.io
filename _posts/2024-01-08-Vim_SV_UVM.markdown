@@ -1,5 +1,5 @@
 ---
-title:  "VIM SV UVM"
+title:  "Verilog/SystemVerilog Setup in Vim"
 date:   2024-01-08 15:06:30 +0800
 categories: EDA UVM
 toc: true
@@ -7,13 +7,7 @@ toc_icon: glasses
 laytout: posts
 ---
 
-This article presents the set ups of vim for SV and UVM purposes.
-
-This article is only halfway completed.
-
-<!-- Since I haven't away from the Github Pages in a while, and it appears that there have been
-significant changes to Ruby, Jekyll, and related tools during this time. I'm currently addressing
-layout issues in the project, and the  -->
+This post guides you through setting up Verilog/SystemVerilog in Vim, covering ctags generation and linting. While vim-ale is often seen as an optimal solution, uncertainties arise in its linting capability for large projects. This prompts the consideration of decoupling Vim editing from linting. Nonetheless, valuable experiences gained during this process are documented below.
 
 ## List of Tools
 
@@ -22,34 +16,37 @@ layout issues in the project, and the  -->
 - slang
 - verible
 
-## ctags
+## universtal-ctags
 
-Universal-ctags is considered as a better tool over traditional ctags. Although some [blogs](https://coderwall.com/p/fy7stg/vim-and-systemverilog) suggested a manual file for verilog/systemverilog tag generation, it seems it is integrated in Universal-ctags since xx.
+The tool universal-ctags is considered as a better replacement over traditional ctags tools. Make sure you have it installed, since its ancestors don't seem to work for Verilog.
+Although some [blogs](https://coderwall.com/p/fy7stg/vim-and-systemverilog) suggested to manually update the `~/.ctags` file for **Verilog/Systemverilog** tag generation, it seems [this feature](https://github.com/universal-ctags/ctags/discussions/2931) is already integrated in Universal-ctags.
 
-### uvm tags
+Generate tags files for UVM src code and your src files separately.
 
-### vim tags settings
+```bash
+ctags --languages=systemverilog -R ./
+```
 
 In the local `.vimrc` file, add the following settings.
 
 ```bash
-set tags=./tags;
-set tags+=$your_dir/uvm-1.1d/src/tags
+set tags=$WORK_HOME/tags;
+set tags+=$UVM_HOME/src/tags
 ```
 
-This file won't take effect, unless you set the following in `~/.vimrc`.
+This file won't take effect, unless you set the following in `~/.vimrc`, as discussed in [this blog](https://vimtricks.com/p/local-vimrc-files/).
 
 ```bash
 if getcwd() =~# '^\($your_working_dir/\)'
   set secure exrc
 endif
 ```
-Check this [blog](https://vimtricks.com/p/local-vimrc-files/) for more details.
+
+Now you can use `Ctrl+]` for jumping into UVM definitions in Vim. You may also consider using the vim plugin `Tagbar`.
 
 ## vim-ale
 
-To tell which linter is currently being used when opening a file in vim, check [this
-issue](https://github.com/dense-analysis/ale/issues/298), and add the following in `.vimrc`
+`vim-ale` serves as a Lint Engine for various of languages. To start with, we use the open source `verilator` tool. To tell which linter is currently being used when opening a file in vim, check [this issue](https://github.com/dense-analysis/ale/issues/298), and add the following in `.vimrc`
 
 ```bash
 let g:ale_echo_msg_error_str = 'E'
@@ -59,28 +56,33 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 You can also check the current value of a vim setting as in [this answer](https://stackoverflow.com/questions/2078271/how-to-get-view-show-current-value-of-a-setting-in-vim)
 
-## UVM repo
+## Parse and Linting
 
-[core-v-verif](https://github.com/openhwgroup/core-v-verif)
-&
-[riscv-dv](https://github.com/chipsalliance/riscv-dv?tab=readme-ov-file)
+> Source code parsing is primarily concerned with understanding the structure and syntax of code, while linting focuses on identifying potential issues, enforcing coding standards, and promoting good coding practices.
 
-## linter
-
-The results of of linters' comparison is listed
-[here](https://chipsalliance.github.io/sv-tests-results/). Among which [slang](https://github.com/MikePopoloski/slang) and [verible](https://github.com/chipsalliance/verible)
-demonstrated the best performance.
+The results of of linters' compatibility comparison is listed [here](https://chipsalliance.github.io/sv-tests-results/). Nevertheless, it doesn't provide details on how these results are obtained. Among all these tools, [slang](https://github.com/MikePopoloski/slang) and [verible](https://github.com/chipsalliance/verible) demonstrated the best performance.
 
 ### slang
+
+Instead of the standard cmake process outlined in the Slang documentation, one my need to inclusion of extra options to explicitly specify the C and CXX compilers. This adjustment becomes crucial due to the default CLANG version on MacOS being 15, while Slang mandates version 16 or higher. For more guidance, refer to [this answer](https://stackoverflow.com/questions/24380456/how-can-i-make-cmake-use-gcc-instead-of-clang-on-mac-os-x).
+
+```bash
+cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ ...
+```
 
 **slang** seems to be a good candidate to replace the verilator, as its outputs seems similar to
 normal clang.
 TODO: merge **slang** with vim-ale, following the example of **clang**
 [here](https://github.com/dense-analysis/ale/blob/master/ale_linters/c/cc.vim).
 
-FIXME: Currently, run cmake under the `build` dir would still have 9 fail cases in total.
+FIXME: Run `cmake` under the `build` dir would still have 9 fail cases in total.
+{: .notice--warning}
+
 FIXME: The `doc` is not fully generated with python errors.
+{: .notice--warning}
 
 ### verible
+
+Verible is another parser of SV, developed by Google groups. Nevertheless, the doc on the github and cs.opensource seems to be a little bit broken. Docs could be accessed under the `doc` dir directly.
 
 ## Results
