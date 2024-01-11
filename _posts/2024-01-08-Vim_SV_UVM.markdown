@@ -85,4 +85,13 @@ FIXME: The `doc` is not fully generated with python errors.
 
 Verible is another parser of SV, developed by Google groups. Nevertheless, the doc on the github and cs.opensource seems to be a little bit broken. Docs could be accessed under the `doc` dir directly.
 
-## Results
+## Snippets
+
+Use the following plugins for Vim.
+
+```bash
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets
+```
+
+Currently the Verilog/SystemVerilog snippets is already included in `vim-snippets`, but UVM snippets are not. However, VS Code has an extension named [sv-1800-2012](https://github.com/gvekony/sv-1800-2012/tree/master), which provides auto complete for UVM snippets. We could adapt the [code](https://github.com/gvekony/sv-1800-2012/blob/master/snippets/uvm_containers.json) for vim snippets.
