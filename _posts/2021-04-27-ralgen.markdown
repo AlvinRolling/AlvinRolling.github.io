@@ -272,17 +272,17 @@ block multi_chan {
     endian little;
     register CHAN_CTRL[32] @’h0200 {
         bytes 2;
-        ... 
+        ...
     };
 }
 {% endhighlight %}
 
-### System 
+### System
 System包括了Block或者sub-system，可用于生成更顶层的System
 
 {% highlight tcl linenos%}
 system name {
-    <property> 
+    <property>
 }
 
 ### 其他常用的property
@@ -309,19 +309,21 @@ system SoC {
 
 另有几项请参阅 UG。
 
-
 ## 使用IP-XACT
+
 IP-XACT是一种符合XML标准的描述语言，相比Synopsys ralf文件更加通用。可以先将IP-XACT生成ralf文件，再进行之前列出的过程，进而生成RAL Model。
+
 ```bash
 ralgen -ipxact2ralf cpu_regs.xml
 ```
+
 ![uvm]({{site.url}}/assets/UVM/ralgen/ip-xact.jpg)
 
 也可以直接将IP-XACT生辰RAL Model。
+
 ```bash
 ralgen -ipxact -uvm -t <top name> <input IP-XACT file>
 ```
-
 
 两者的对应关系如下例所示。
 **cpu_regs.xml**
@@ -347,10 +349,11 @@ ralgen -ipxact -uvm -t <top name> <input IP-XACT file>
     register r2 @'h8 {
         field f2 {
             bits 1;
-            access rw; 
+            access rw;
         }
 ... }
 {% endhighlight %}
 
-## Reference 
+## Reference
+
 **UVM Register Abstraction Layer Generator User Guide**

@@ -1,7 +1,7 @@
 ---
 title:  "PrimePower 使用笔记"
 date:   2021-06-03 15:46:30 +0800
-categories: Opt 
+categories: Opt
 toc: true
 toc_icon: glasses
 ---

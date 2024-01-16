@@ -10,7 +10,7 @@ toc_icon: glasses
 
 ## 问题描述
 
-综合时候可能出现 `TIM-134` Warning 
+综合时候可能出现 `TIM-134` Warning
 
 > Design 'Test' containts 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
 

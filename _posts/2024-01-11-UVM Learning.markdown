@@ -4,7 +4,7 @@ date:   2024-01-11 11:06:30 +0800
 categories: EDA UVM
 toc: true
 toc_icon: glasses
-laytout: posts
+layout: posts
 ---
 
 This article provides a review of UVM learning resources, complete example projects, and useful tools to expedite the learning process.

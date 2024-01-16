@@ -1,0 +1,115 @@
+---
+title:  "NVMe Introduction"
+date:   2024-01-16 12:06:30 +0800
+categories: ssd
+toc: true
+toc_icon: glasses
+laytout: posts
+---
+
+Introduction to **Non-Volatile Memory Express (NVMe)** Interface for Beginners.
+
+![]({{site_url}}/assets/NVMe/SSD_NVMe_Trend.png)
+*IDC, Worldwide Solid State Drive Forecast Update, 2020-2024, Doc #US4590920, December 2020*
+
+This article serves as a beginner's guide to the **Non-Volatile Memory Express (NVMe)** interface.
+A significant portion of the content is carefully selected from various sources on the internet, as I'm relatively new to this field. Nonetheless, the article includes thorough discussions and emphasizes key points to offer an enhanced learning path for newcomers.
+
+## Learning Resources
+
+- NVMe Official [Specification](https://nvmexpress.org/specifications/) and [Education](https://nvmexpress.org/education/) resources.
+- [An introduction to NVMe](https://www.seagate.com/files/www-content/product-content/ssd-fam/nvme-ssd/nytro-xf1440-ssd/_shared/docs/an-introduction-to-nvme-tp690-1-1605us.pdf) from Seagate.
+- [SNIA](https://www.snia.org/education/what-is-nvme).
+
+## Conventions
+
+- NVME-MI: NVM Express Management Interface
+
+> The NVM Express Management Interface is the command set for in-band and out-of-band management of NVMe storage systems. These management functions include, but are not limited to, discovering, monitoring, and updating firmware on NVMe devices. NVMe-MI provides an industry-standard way to manage NVMe drives and devices.
+
+- NVME-oF: NVM Express over Fabric
+
+> The NVMe-oF protocol enables NVMe commands to be transmitted over RDMA, Fibre Channel, and TCP. NVMe-oF extends the NVMe deployment from local host to remote host(s) for a scale-out NVMe storage system.
+
+## Specification
+
+![NVMe_Spec_Family]({{site_url}}/assets/NVMe/NVMe_Spec_Family.png)
+*NVMe Specification Family*
+
+![NVMe_Spec_Family2]({{site_url}}/assets/NVMe/NVMe_Spec_Family2.png)
+*NVMe Specification Family in Group*
+
+> NVM Express (NVMe) is a protocol for the transport of data over different me- dia and for optimized storage in NAND flash. Peripheral Component Intercon- nect Express (PCIe) is currently the most used transport medium. Other media, like NVMe over Fabrics, are currently being standardized. NVMe is optimized for NAND flash chips. The protocol provides a high-bandwidth and low-latency framework to the storage protocol, but with flash-specific improvements.
+
+![SSD_Interface_Protocol]({{site_url}}/assets/NVMe/SSD_Interface_Protocol.png)
+
+It could be seen that NVMe plays as a higher level protocol, which is usually implemented in software. The PCIe is mainly utilized as a transmission layer protocol, where the physical connector could be in M.2, SATA Express or PCIe form.
+
+A more direct illustration is drawn below.
+![NVMe_Management_Hierarchy]({{site_url}}/assets/NVMe/NVMe_Management_Hierarchy.png)
+
+A basic Memory-Based Transport Model is shown below.
+![NVMe_Queue_Pair]({{site_url}}/assets/NVMe/NVMe_Queue_Pair.png)
+*Queue Pair of NVMe*
+
+For a description of the queueing interface and command arbitration details, refer to the introduction (early 2013 version) available [here](https://www.flashmemorysummit.com/English/Collaterals/Proceedings/2013/20130812_PreConfD_Marks.pdf).
+
+## Command Set
+
+![Command]({{site_url}}/assets/NVMe/NVMe_Command_Set.png)
+
+Command set is a feature that NVMe evolves with the need changes of storage.
+
+> The individual command set specifications allow NVM Express to isolate and independently evolve command sets for emerging technologies such as Zoned Namespaces, Key Value and eventually computational storage. The NVMe specifications before NVMe 2.0 included all command set details. NVMe 2.0 separates these command sets into different specifications.
+
+### Key-Value Command Set
+
+Block Storage
+
+- Data stored in blocks of a fixed size
+- Data addressed by a Logical Block Address (LBA)
+- LBA is a fixed number of bytes
+- Storage space allocated in integer multiples of block size
+- Logical Blocks are associated 1to1 with physical blocks
+
+KV Storage
+
+- Data is stored as unstructured data
+- Data addressed by a key
+- Key is variable length
+- Storage space is allocated in increments of bytes
+- Value is associated with amount of physical storage necessary
+
+![KV_Command_Benefits]({{site_url}}/assets/NVMe/KV_Command_Benefits.png)
+
+### Zoned Namespace Command Set
+
+By dividing an NVMe namespace into zones, which are required to be sequentially written, ZNS offers essential benefits to hyper-scale organizations, all-flash array vendors and large storage-system vendors to take advantage of storage devices optimized for sequential write workloads. ZNS reduces device-side write amplification, over-provisioning and DRAM while improving tail latency, throughput and drive capacity.
+
+### Summary
+
+A minimum set of only 13 commands, as listed in Table 1, could achieve the NVMe interface.
+
+![Simple_Command]({{site_url}}/assets/NVMe/Seagate_Simple_Command_set.png)
+
+## Storage Model
+
+The NVM storage model includes the following entities:
+
+- NVM subsystems
+- Domains
+- Endurance Groups
+- NVM Sets
+- Namespaces
+
+<!-- TODO: replace with site_url -->
+![Hier]({{site_url}}/assets/NVMe/NVM_Storage_Hier.png)
+
+![Subsystem]({{site_url}}/assets/NVMe/NVM_Subsystem.png)
+
+## Further Reading
+
+- NVME device libraries for multi-platform ([xNVME](https://github.com/OpenMPDK/xNVMe)) and Linux ([NVME Cli](https://github.com/linux-nvme/nvme-cli)). Full knowledge about other drivers could be found [here](https://nvmexpress.org/drivers/).
+- [MQSim](https://github.com/CMU-SAFARI/MQSim): A Simulator for Modern NVMe and SATA SSDs
+- Open-source [Key-Value SSD Driver](https://github.com/OpenMPDK/KVSSD)
+- [Low-level NVM Express Mastery Galore](https://github.com/OpenMPDK/libvfn)

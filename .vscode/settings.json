@@ -1,0 +1,11 @@
+{
+  "editor.fontSize": 12,
+  "editor.fontFamily": "JetBrains Mono",
+  "cSpell.words": [
+    "NAND",
+    "Systemverilog",
+    "Testbench",
+    "Verilog"
+  ],
+  "esbonio.sphinx.confDir": ""
+}
