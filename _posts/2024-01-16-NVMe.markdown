@@ -4,7 +4,7 @@ date:   2024-01-16 12:06:30 +0800
 categories: ssd
 toc: true
 toc_icon: glasses
-layout: posts
+# layout: posts
 ---
 
 Introduction to **Non-Volatile Memory Express (NVMe)** Interface for Beginners.

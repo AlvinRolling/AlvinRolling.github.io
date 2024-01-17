@@ -4,10 +4,12 @@ date:   2024-01-17 12:00:30 +0800
 categories: Vim
 toc: true
 toc_icon: glasses
-layout: posts
+# layout: posts
 ---
 
 This article outlines the process of adding UVM snippets to the `vim-snippet` GitHub repository.
+
+## Introduction
 
 ### Background
 
@@ -88,9 +90,12 @@ Now that we have the completed snippets for `uvm_container`, append them to the 
 
 ![uvm_snippet_test]({{site_url}}/assets/Vim/uvm_snippet_test.png)
 
-### TODO
+### Github Pull Request
 
-- Open an issue to commit the changes of UVM snippets to the *vim-snippet* repository.
+A [pull request](https://github.com/honza/vim-snippets/pull/1510) is opened to merge the changes into the *vim-snippet* repository.
+
+## TODO
+
 - Refine the UVM snippets, addressing any inclusion of unwanted methods in certain class snippets.
 - Add missing class snippets, such as `uvm_driver`, `uvm_monitor`, etc. Presently, only basic `uvm_object` and `uvm_component` related class snippets are supported.
 - Repeat similar process for `uvm_macros` and `uvm_phase` snippets provided by the original [VS Code Plugin](https://github.com/gvekony/sv-1800-2012/tree/master/snippets).
