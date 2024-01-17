@@ -4,7 +4,7 @@ date:   2024-01-16 12:06:30 +0800
 categories: ssd
 toc: true
 toc_icon: glasses
-laytout: posts
+layout: posts
 ---
 
 Introduction to **Non-Volatile Memory Express (NVMe)** Interface for Beginners.
@@ -18,6 +18,7 @@ A significant portion of the content is carefully selected from various sources 
 ## Learning Resources
 
 - NVMe Official [Specification](https://nvmexpress.org/specifications/) and [Education](https://nvmexpress.org/education/) resources.
+- Flash Memory Summit [Proceedings](https://www.flashmemorysummit.com/).
 - [An introduction to NVMe](https://www.seagate.com/files/www-content/product-content/ssd-fam/nvme-ssd/nytro-xf1440-ssd/_shared/docs/an-introduction-to-nvme-tp690-1-1605us.pdf) from Seagate.
 - [SNIA](https://www.snia.org/education/what-is-nvme).
 
@@ -32,6 +33,9 @@ A significant portion of the content is carefully selected from various sources 
 > The NVMe-oF protocol enables NVMe commands to be transmitted over RDMA, Fibre Channel, and TCP. NVMe-oF extends the NVMe deployment from local host to remote host(s) for a scale-out NVMe storage system.
 
 ## Specification
+
+![NVMe_Roadmap]({{site_url}}/assets/NVMe/NVMe_Roadmap.png)
+*NVMe Roadmap from [this presentation](https://nvmexpress.org/wp-content/uploads/NVMe-Technology-Powering-the-Connected-Universe.pdf)*
 
 ![NVMe_Spec_Family]({{site_url}}/assets/NVMe/NVMe_Spec_Family.png)
 *NVMe Specification Family*
@@ -61,6 +65,8 @@ For a description of the queueing interface and command arbitration details, ref
 Command set is a feature that NVMe evolves with the need changes of storage.
 
 > The individual command set specifications allow NVM Express to isolate and independently evolve command sets for emerging technologies such as Zoned Namespaces, Key Value and eventually computational storage. The NVMe specifications before NVMe 2.0 included all command set details. NVMe 2.0 separates these command sets into different specifications.
+
+NVMe 2.0 introduced two additional command sets in addition to those in NVMe 1.x. For more information, you can refer to [this presentation](https://nvmexpress.org/wp-content/uploads/New-NVMe%C2%AE-Command-Sets-Zoned-Namespace-ZNS-Key-Value-KV.pdf).
 
 ### Key-Value Command Set
 

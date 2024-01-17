@@ -4,7 +4,7 @@ date:   2021-04-27 16:06:30 +0800
 categories: EDA UVM
 toc: true
 toc_icon: glasses
-laytout: posts
+layout: posts
 ---
 
 本文介绍使用ralgen自动生成UVM RAL Model的方法。

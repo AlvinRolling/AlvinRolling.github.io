@@ -4,7 +4,7 @@ date:   2024-01-08 15:06:30 +0800
 categories: EDA UVM
 toc: true
 toc_icon: glasses
-laytout: posts
+layout: posts
 ---
 
 This post guides you through setting up Verilog/SystemVerilog in Vim, covering ctags generation and linting. While vim-ale is often seen as an optimal solution, uncertainties arise in its linting capability for large projects. This prompts the consideration of decoupling Vim editing from linting. Nonetheless, valuable experiences gained during this process are documented below.

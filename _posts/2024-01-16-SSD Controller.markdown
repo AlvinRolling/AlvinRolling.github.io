@@ -4,7 +4,7 @@ date:   2024-01-16 12:00:30 +0800
 categories: SSD
 toc: true
 toc_icon: glasses
-laytout: posts
+layout: posts
 ---
 
 Introduction to **Solid-State Drive (SSD)** for Beginners.
