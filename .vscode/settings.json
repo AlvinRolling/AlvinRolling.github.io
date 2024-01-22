@@ -3,8 +3,10 @@
   "editor.fontFamily": "JetBrains Mono",
   "cSpell.words": [
     "NAND",
+    "Surelog",
     "Systemverilog",
     "Testbench",
+    "verible",
     "Verilog"
   ],
   "esbonio.sphinx.confDir": ""
