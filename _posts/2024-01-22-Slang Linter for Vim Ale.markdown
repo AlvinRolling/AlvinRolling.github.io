@@ -80,9 +80,17 @@ Now, execute `./run-tests` and redirect the output to a text file to examine the
 - All tests have passed, verified by the absence of `(x)` symbols in the outputs.
 - All 5 `--linter-only` checks have passed.
 
-Once all tests are successful, specify the linter for the SystemVerilog filetype using `let g:ale_linters = {'systemverilog' : ['slang']}` in your `.vimrc`. The integration process is now complete, and a pull request has been submitted.
+Once all tests are successful, specify the linter for the SystemVerilog filetype using `let g:ale_linters = {'systemverilog' : ['slang']}` in your `.vimrc`.
 
 ## Summary
+
+### Pull Request
+
+The integration process is now complete, and a [pull request](https://github.com/dense-analysis/ale/pull/4713) has been submitted.
+
+<img src="{{site_url}}/assets/Vim/slang_ale_pr_file_change.png" alt="drawing" style="width:320px;"/>
+
+### Note
 
 While many ASIC engineers are accustomed to utilizing commercial tools such as **VCS** for linting and parsing, a Vim-based custom solution may present advantages for swift responses. It's noteworthy that some vendors are striving to offer more efficient editor solutions, such as [EuclidE]({{site_url}}/eda/front-end/EuclidE-Part0/), tailored for front-end designers. Nevertheless, these tools are far from being user-friendly.
 

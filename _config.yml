@@ -95,7 +95,7 @@ analytics:
 # Site Author
 author:
   name             : "Alvin Tang"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/bio/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "ASIC Design Enginner"
   location         : "Beijing, China"
   email            : alvinrolling@gmail.com
